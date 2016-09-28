@@ -44,7 +44,7 @@ app.post('/contacts', (req, res)=>{
     let newContact = req.body;
     newContact.createDate = new Date();
 
-    if(!(req.body.firstName || req.body.lastName)){
+    if(!(req.body.first || req.body.last)){
         handleError(res, 'Invalid User Input', 'Must provide a first and last name', 400);
     }
 

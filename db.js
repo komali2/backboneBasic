@@ -1,6 +1,13 @@
 var api = {};
 var storage = {};
-var id = 0;
+var id = 2;
+
+storage[1] = {
+    id: 1,
+    first: 'joe',
+    last: 'smith',
+    occupation: 'not doing things'
+}
 
 api.getContacts = function(){
     return new Promise((resolve, reject)=>{
