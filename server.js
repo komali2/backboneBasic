@@ -9,6 +9,10 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.json());
 
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});
+
 //create a global database variable
 var db;
 
