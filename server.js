@@ -14,7 +14,7 @@ app.listen(3000, function () {
 });
 
 //create a global database variable
-var db;
+var db = require('./db.js');
 
 
 //API ROUTES
@@ -32,7 +32,12 @@ function handleError(res, reason, message, code){
 */
 
 app.get('/contacts', (req, res)=>{
-    //add db method get contacts
+    db.getContacts().then((contacts)=>{
+        res.send(contacts);
+    })
+    .catch((err)=>{
+        handleError(res, 'couldnt get contacts', 'couldnt get contacts');
+    });
 });
 
 app.post('/contacts', (req, res)=>{
@@ -43,7 +48,13 @@ app.post('/contacts', (req, res)=>{
         handleError(res, 'Invalid User Input', 'Must provide a first and last name', 400);
     }
 
-    //add db method create new contact
+    db.createContact(newContact).then((contact)=>{
+        res.send(contact);
+    })
+    .catch((err)=>{
+        handleError(res, 'couldnt create contact', 'couldnt create contact');
+    });
+
 });
 
 /*
@@ -55,18 +66,31 @@ app.post('/contacts', (req, res)=>{
 
 app.get('/contacts/:id', (req, res)=>{
     // req.params.id
-    //add db method to get one contact by id
+    db.getContact(req.params.id).then((contact)=>{
+        res.send(contact);
+    })
+    .catch((err)=>{
+        handleError(res, 'could not get contact' + req.params.id, 'could not get contact' + req.params.id);
+    });
 });
 
+
 app.put('/contacts/:id', (req, res)=>{
-    let updateDoc = req.body;
-    delete updateDoc._id;
-
     // req.params.id
-
-    //add db method to update the given contact
+    db.updateContact(req.params.id).then((contact)=>{
+        res.send(contact);
+    })
+    .catch((err)=>{
+        handleError(res, 'could not update contact' + req.params.id, 'could not update contact' + req.params.id);
+    });
 });
 
 app.delete('/contacts/:id', (req, res)=>{
     //add db method to delete given contact
+    db.deleteContact(req.params.id).then(()=>{
+        res.send('contact deleted');
+    })
+    .catch((err)=>{
+        handleError(res, 'could not delete contact' + req.params.id, 'could not delete contact' + req.params.id);
+    });
 });
