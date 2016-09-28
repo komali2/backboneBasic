@@ -41,6 +41,18 @@ api.getContact = function(id){
 }
 
 //TODO: api.updateContact
+
+api.updateContact = function(id, updates){
+    return new Promise((resolve, reject) => {
+        if (!storage[id]) {
+            reject();
+        } else {
+            storage[id] = updates;
+            resolve(storage[id]);
+        }
+    });
+    
+}
 //TODO api.deleteContact
 
 

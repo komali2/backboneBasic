@@ -78,7 +78,7 @@ app.get('/contacts/:id', (req, res)=>{
 
 app.put('/contacts/:id', (req, res)=>{
     // req.params.id
-    db.updateContact(req.params.id).then((contact)=>{
+    db.updateContact(req.params.id, req.body).then((contact)=>{
         res.send(contact);
     })
     .catch((err)=>{

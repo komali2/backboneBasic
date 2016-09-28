@@ -11,8 +11,9 @@ var joeModel = Backbone.Model.extend({
 var joe = new joeModel();
 
 joe.fetch().then(function(){
-    joe.get('first');
-    joe.get('last');
-    joe.set('occupation', 'doing things');
+    console.log(joe.get('first'));
+    console.log(joe.get('last'));
+    console.log(joe.set('occupation', 'doing things'));
+    console.log(joe.get('occupation'));
     joe.save();
 });
