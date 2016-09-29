@@ -1,6 +1,7 @@
 var api = {};
 var storage = {};
-var id = 2;
+
+var id = 3;
 
 storage[1] = {
     id: 1,
@@ -8,7 +9,12 @@ storage[1] = {
     last: 'smith',
     occupation: 'not doing things'
 }
-
+storage[2] = {
+    id: 2,
+    first: 'jill',
+    last: 'stein',
+    occupation: 'running for prez'
+}
 api.getContacts = function(){
     return new Promise((resolve, reject)=>{
         var contacts = Object.keys(storage);
@@ -16,7 +22,14 @@ api.getContacts = function(){
             reject();
         }
         else{
-            resolve(contacts);
+            var out = contacts.map((el)=>{
+                return storage[el];
+            });
+            var give = {
+                thing: 'hello',
+                contacts: out
+            }
+            resolve(JSON.stringify(give));
         }
     });
 }
@@ -25,12 +38,14 @@ api.createContact = function(newContact){
     //TODO: somehow make sure it isnt a duplicate
     storage[id] = newContact;
     id++;
+
     return new Promise((resolve, reject)=>{
         resolve(newContact);
     });
 }
 
 api.getContact = function(id){
+    console.log('got request for ', id);
     return new Promise((resolve, reject)=>{
         if(!storage[id]){
             reject();
