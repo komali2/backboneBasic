@@ -1,5 +1,4 @@
-var joeModel = Backbone.Model.extend({
-    url: '/contacts/1',
+var ContactsModel = Backbone.Model.extend({
     defaults: {
         id: null,
         first: null,
@@ -8,12 +7,13 @@ var joeModel = Backbone.Model.extend({
     }
 });
 
-var joe = new joeModel();
+var ContactsCollection = Backbone.Collection.extend({
+    url: '/contacts',
+    model: ContactsModel
+});
 
-joe.fetch().then(function(){
-    console.log(joe.get('first'));
-    console.log(joe.get('last'));
-    console.log(joe.set('occupation', 'doing things'));
-    console.log(joe.get('occupation'));
-    joe.save();
+var contacts = new ContactsCollection();
+
+contacts.fetch().then(function(){
+    console.log(contacts.length);
 });
