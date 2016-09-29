@@ -11,7 +11,7 @@ storage[1] = {
 
 api.getContacts = function(){
     return new Promise((resolve, reject)=>{
-        var contacts = storage.keys();
+        var contacts = Object.keys(storage);
         if(!contacts.length){
             reject();
         }
